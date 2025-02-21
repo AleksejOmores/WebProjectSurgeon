@@ -1,0 +1,115 @@
+﻿@{
+    ViewData["Title"] = "Запланированные операции";
+}
+
+<div class="sidebar" id="sidebar">
+    <button id="toggleSidebar" onclick="toggleSidebar()">☰</button>
+    <h2 style="-webkit-text-fill-color: white; font-size: 16px">Меню</h2>
+    <ul>
+        <li><a asp-action="IndexMain">Главная страница</a></li>
+        <li><a asp-action="IndexEmergency" class="active">Экстренные операции</a></li>
+        <li><a asp-action="IndexScheduled">Плановые операции</a></li>
+    </ul>
+</div>
+
+<div class="main-content">
+    <div class="calendar-container">
+        <h3 id="selectedOperating">Выбрана операционная:</h3>
+        <hr class="divider">
+        <div class="operating-rooms">
+            @foreach (var room in ViewBag.OperatingRooms)
+            {
+                <button class="room" onclick="selectRoom('@room.RoomId', '@room.RoomName')">@room.RoomName</button>
+            }
+        </div>
+
+        <div class="horizontal-container">
+            <div id="add-procedure-block" class="add-procedure-block">
+                <h3>Добавить операцию</h3>
+                <form id="procedure-form">
+                    <label class="labelHome">Операционная:</label>
+                    <input class="inputIndex text" type="text" name="OperatingRoomId" id="selected-operating-room-id" readonly>
+
+                    <label class="labelHome">Хирург:</label>
+                    <select class="inputIndex text" id="doctor-select" required>
+                        <option value="">Выберите хирурга</option>
+                        @foreach (var surgeon in ViewBag.Surgeons)
+                        {
+                            <option value="@surgeon.SurgeonId">@surgeon.FullName</option>
+                        }
+                    </select>
+
+                    <label class="labelHome">Начало операции:</label>
+                    <input class="inputIndex text" type="datetime-local" id="procedure-start-datetime" required>
+
+                    <label class="labelHome">Конец операции:</label>
+                    <input class="inputIndex text" type="datetime-local" id="procedure-end-datetime" required>
+
+                    <label class="labelHome">Статус операции:</label>
+                    <input class="inputIndex text" type="text" id="status" value="Запланировано" readonly>
+
+                    <button type="button" class="addOperating" onclick="addProcedure()">Добавить операцию</button>
+                </form>
+            </div>
+
+            <div id="procedure-list" class="procedure-list">
+                <h3>Список операций</h3>
+                <div id="operations-list" class="operations-list">
+                    <div class="operations-row header">
+                        <div class="operations-cell">Операционная</div>
+                        <div class="operations-cell">Хирург</div>
+                        <div class="operations-cell">Дата начала операции</div>
+                        <div class="operations-cell">Дата конца операции</div>
+                        <div class="operations-cell">Статус операции</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function selectRoom(roomId, roomName) {
+        document.getElementById("selectedOperating").textContent = `Выбрана операционная: ${roomName}`;
+        document.getElementById("selected-operating-room-id").value = roomId;
+    }
+
+    function selectSurgeon() {
+        const select = document.getElementById("doctor-select");
+        const selectedId = select.value;
+        document.getElementById("selected-surgeon-id").value = selectedId;
+    }
+
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('collapsed');
+    }
+
+    function addProcedure() {
+        const procedureData = {
+            SurgeonId: document.getElementById("doctor-select").value,
+            StartDateTime: document.getElementById("procedure-start-datetime").value,
+            EndDateTime: document.getElementById("procedure-end-datetime").value,
+            OperatingRoomId: document.getElementById("selected-operating-room-id").value,
+            Status: document.getElementById("status").value
+        };
+
+        fetch('/Home/AddProcedure', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(procedureData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    document.getElementById("procedure-form").reset();
+                } else {
+                    alert("Ошибка: " + data.message);
+                }
+            })
+            .catch(error => console.error('Ошибка:', error));
+    }
+</script>

@@ -1,0 +1,76 @@
+﻿@model MainPage
+@{
+    ViewData["Title"] = "Экстренные операции";
+}
+
+<div class="sidebar" id="sidebar">
+    <button id="toggleSidebar" onclick="toggleSidebar()">☰</button>
+    <h2 style="-webkit-text-fill-color: white; font-size: 16px">Меню</h2>
+    <ul>
+        <li><a asp-action="IndexMain">Главная страница</a></li>
+        <li><a asp-action="IndexEmergency" class="active">Экстренные операции</a></li>
+        <li><a asp-action="IndexScheduled">Плановые операции</a></li>
+    </ul>
+</div>
+
+<div class="main-content">
+    <div class="calendar-container">
+        <h3 id="selectedOperating">Выбрана операционная:</h3>
+        <hr class="divider">
+        <div class="operating-rooms">
+            <button class="room" onclick="selectRoom(1)">Операционная 1</button>
+            <button class="room" onclick="selectRoom(2)">Операционная 2</button>
+            <button class="room" onclick="selectRoom(3)">Операционная 3</button>
+            <button class="room" onclick="selectRoom(4)">Операционная 4</button>
+            <button class="room" onclick="selectRoom(5)">Операционная 5</button>
+            <button class="room" onclick="selectRoom(6)">Операционная 6</button>
+            <button class="room" onclick="selectRoom(7)">Операционная 7</button>
+            <button class="room" onclick="selectRoom(8)">Операционная 8</button>
+        </div>
+
+        <div class="horizontal-container">
+            <div id="add-procedure-block" class="add-procedure-block">
+                <h3>Добавить операцию</h3>
+                <form id="procedure-form">
+                    <label class="labelHome">Операционная:</label>
+                    <input class="inputIndex text" type="text" id="selected-operating-room" readonly>
+
+                    <label class="labelHome">Хирург:</label>
+                    <select id="doctor-select">
+                        <option>Врач 1</option>
+                        <option>Врач 2</option>
+                        <option>Врач 3</option>
+                    </select>
+
+                    <label class="labelHome">Дата проведения:</label>
+                    <input class="inputIndex" type="date" id="procedure-date">
+
+                    <label class="labelHome">Начало операции:</label>
+                    <input class="inputIndex" type="time" id="procedure-time">
+
+                    <label class="labelHome">Конец операции:</label>
+                    <input class="inputIndex" type="time" id="procedure-time">
+
+                    <label class="labelHome">Статус операции:</label>
+                    <input class="inputIndex text" type="text" id="status" value="Запланированная">
+
+                    <button type="button" class="addOperating" onclick="addProcedure()">Добавить операцию</button>
+                </form>
+            </div>
+
+            <div id="procedure-list" class="procedure-list">
+                <h3>Список операций</h3>
+                <div id="operations-list" class="operations-list">
+                    <div class="operations-row header">
+                        <div class="operations-cell">Операционная</div>
+                        <div class="operations-cell">Хирург</div>
+                        <div class="operations-cell">Дата проведения</div>
+                        <div class="operations-cell">Начало операции</div>
+                        <div class="operations-cell">Конец операции</div>
+                        <div class="operations-cell">Статус операции</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

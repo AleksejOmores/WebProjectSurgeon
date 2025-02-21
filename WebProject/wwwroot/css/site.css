@@ -1,0 +1,576 @@
+/* Контейнер для основного контента */
+
+.main {
+background: #f8f8f8;
+padding: 150px;
+}
+.main-top {
+    background-color: #f1f1f1;
+    padding: 15px;
+    text-align: right;
+}
+.mainPage {
+    background: #f8f8f8;
+    position: relative;
+}
+.main-page {
+    background: #fff;
+    padding: 50px;
+}
+.container {
+    width: 1250px;
+    height: 600px;
+    margin: 0 auto;
+    max-width: 1250px;
+    max-height: 600px;
+    background: #fff;
+    box-shadow: 0 15px 17px 0.17px rgb(0 0 0 / 5%);
+    -webkit-border-radius: 20px;
+}
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.main-selection {
+    margin-bottom: 150px;
+}
+.signup-content{
+    padding: 50px 0;
+    display: -webkit-flex;
+}
+.main-content-index{
+    padding: 100px 0;
+}
+.signup-form {
+    margin-left: 0px;
+    margin-right: 20px;
+    padding-left: 34px;
+    width: 50%;
+    overflow: hidden;
+}
+.main-form {
+    margin-left: 0px;
+    margin-right: 20px;
+    padding-left: 34px;
+    width: 100%;
+    overflow: hidden;
+}
+.signup-image {
+    margin-top: 45px;
+    margin: 0 55px;
+    overflow: hidden;
+}
+figure {
+    margin-bottom: 50px;
+    text-align: center;
+    margin: 0;
+}
+img{
+    max-width: 90%;
+    height: auto;
+}
+.imgODKB {
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    margin-right: 10px;
+    align-content:center;
+}
+/*Стили для текста*/
+h1, h2, h3 {
+    font-family: 'PT Sans Regular','Arial', sans-serif;
+    color: #2C3E50;
+}
+
+.main-title {
+    font-size: 30px; /* Increase the font size */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.main-subtitle {
+    font-size: 18px; /* Larger subtitle */
+    color: #555;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 36px;
+}
+.h1Main {
+    margin-top: 5px;
+    margin-left: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    display: inline-block;
+}
+h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+.h2Main {
+    text-align: right;
+}
+code {
+    color: black;
+    background-color: #eeeded;
+    border-radius: 3px;
+    font-family: courier, monospace;
+    padding: 0 3px;
+}
+.contactInfo {
+    margin: 5px 0;
+}
+h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+/* Основной текст */
+p {
+    font-size: 18px;
+    color: #7f8c8d;
+}
+/*Стили для полей ввода*/
+
+.inputReg {
+    width: 100%;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #999;
+    padding: 6px 30px;
+    font-family: Poppins;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+    -webkit-appearance: unset !important;
+}
+input[type="email"], input[type="password"], textarea {
+    width: 100%;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #999;
+    padding: 6px 30px;
+    font-family: Poppins;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline:none;
+    -webkit-appearance: unset!important;
+}
+.input-icons {
+    width: 100%;
+}
+    .input-icons i {
+        position: absolute;
+        padding: 10px;
+        margin-right: 10px;
+    }
+/* Кнопка отправки формы */
+input[typeof="input"] {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 10em;
+}
+    input[type="input"]:hover {
+        background-color: #27ae60;
+    }
+input[typeof="regist"] {
+    background-color: lightgray;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 10em;
+}
+    input[type="regist"]:hover {
+        background-color: grey;
+    }
+
+p.blocktext {
+    text-align: center;
+}
+/*Стиль вывода ошибок*/
+span {
+    color: red;
+    font-weight:bold;
+    display: block;
+    margin: 5px 0px 15px;
+}
+.main-menu {
+    background-image: -webkit-linear-gradient(0deg, #0debf2 0%, #07939c 100%);
+    position: absolute;
+    margin-top: -10px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    padding: 12px 20px;
+    max-width: 1540px;
+    height: 50px;
+}
+input[type=submit]{
+    background-color: black;
+    padding: 5px 15px;
+    color: white;
+    border: 0 none;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+button[type=button] {
+    background-color: black;
+    padding: 5px 15px;
+    color: white;
+    border: 0 none;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.dropbtn {
+    background-color: #999999;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    width: 200px;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+    .dropbtn:hover {
+        background-color: #828282 ;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .dropbtn:active {
+        background-color: #808080;
+        transform: translateY(0);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+        
+        .dropdown-content a:hover {
+            background-color: #ddd
+        }
+
+
+.show {
+    display: block;
+}
+.button-container {
+    display: flex;
+    gap: 20px; /* Space between buttons */
+    margin-top: 20px;
+}
+
+.separator {
+    width: 3px;
+    background-color: #ddd;
+    height: 300px;
+    margin: 0 40px;
+}
+
+.footerMain {
+    margin-top: 85px;
+}
+.footer-container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Боковая панель навигации */
+.sidebar {
+    background-color: #34495e;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+    .sidebar h2 {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+            .sidebar ul li a {
+                color: #fff;
+                text-decoration: none;
+                font-size: 16px;
+                transition: color 0.3s;
+            }
+
+                .sidebar ul li a:hover {
+                    color: #1abc9c;
+                }
+
+    .sidebar.collapsed {
+        width: 50px; /* Ширина свернутого sidebar */
+    }
+    .sidebar ul, .sidebar h2 {
+        transition: opacity 0.3s ease;
+    }
+
+    .sidebar.collapsed ul, .sidebar.collapsed h2 {
+        opacity: 0; /* Скрываем текст */
+    }
+
+#toggleSidebar {
+    position: absolute;
+    top: 10px;
+    right: -20px;
+    background-color: #34495e;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    z-index: 1;
+    font-size: 20px;
+}
+
+.sidebar.collapsed #toggleSidebar {
+    right: -30px; /* Перемещаем кнопку при сворачивании */
+}
+/* Основная область контента */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f9;
+    border-radius: 8px;
+    margin-left: 160px;
+}
+
+/* Оформление кнопок операционных и месяцев */
+.calendar-container {
+    min-width: 1580px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+button {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    button:hover {
+        background-color: #1abc9c;
+        color: #fff;
+        transform: translateY(-3px);
+    }
+
+    button:active {
+        background-color: #16a085;
+        transform: translateY(0);
+    }
+    button.addOperating {
+        background-color: #28e0bc;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+        button.addOperating:hover {
+            background-color: #1abc9c;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+        button.addOperating:active {
+            background-color: #16a085;
+            transform: translateY(0);
+        }
+.divider {
+    border: none;
+    border-top: 4px solid #ccc;
+    margin: 15px 0;
+}
+
+.operating-rooms .room {
+    padding: 5px 5px;
+    font-size: 16px; 
+    width: 150px; 
+    height: 50px; 
+    margin-bottom: 20px;
+}
+
+.horizontal-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px; /* Отступ между контейнерами */
+}
+
+.add-procedure-block, .procedure-list {
+    width: 45%;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.labelHome {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #fafafa;
+}
+
+select, .inputIndex {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    backdrop-filter: var(--glass-blur);
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-color);
+    margin: 10px 0;
+    width: 100%;
+}
+.text, select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+#procedure-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#procedure-list ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+    #procedure-list ul li {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+        #procedure-list ul li:last-child {
+            border-bottom: none;
+        }
+
+input[ type="date"],
+input[type="time"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+    input:focus,
+    select:focus {
+        border-color: #5dade2;
+        outline: none;
+    }
+
+.operations-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.operations-cell {
+    flex: 1; /* Занять равное пространство */
+    text-align: center; /* Центрировать текст */
+}
+
+.operations-row.header {
+    font-weight: bold;
+    background-color: #f0f0f0; /* Цвет фона для заголовка */
+}
+
+/* Темная тема */
+.dark-theme {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+    .dark-theme .card {
+        background-color: #2d2d2d;
+        border-color: #404040;
+    }
+
+    .dark-theme .form-control {
+        background-color: #333;
+        color: #fff;
+        border-color: #555;
+    }
+
+    .dark-theme .alert-success {
+        background-color: #155724;
+        border-color: #155724;
+        color: #d4edda;
+    }

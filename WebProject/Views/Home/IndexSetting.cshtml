@@ -1,0 +1,74 @@
+﻿@model WebProject.Models.UserSettingsViewModel
+@{
+    ViewData["Title"] = "Настройки пользователя";
+    var theme = Model.ThemePreference ?? "light";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card @(theme == "dark" ? "bg-dark text-white" : "")">
+                <div class="card-header">
+                    <h3>@ViewData["Title"]</h3>
+                </div>
+                <div class="card-body">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+                    }
+
+                    <form asp-action="UserSettings" method="post">
+                        <div class="mb-3">
+                            <label asp-for="Username" class="form-label"></label>
+                            <input asp-for="Username" class="form-control">
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Тема оформления</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" asp-for="ThemePreference" value="light" id="themeLight">
+                                <label class="form-check-label" for="themeLight">Светлая</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" asp-for="ThemePreference" value="dark" id="themeDark">
+                                <label class="form-check-label" for="themeDark">Темная</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="NewPassword" class="form-label"></label>
+                            <input asp-for="NewPassword" class="form-control">
+                            <span asp-validation-for="NewPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ConfirmPassword" class="form-label"></label>
+                            <input asp-for="ConfirmPassword" class="form-control">
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+            document.querySelectorAll('input[name="ThemePreference"]').forEach((elem) => {
+            elem.addEventListener('change', function () {
+                document.body.classList.toggle('dark-theme', this.value === 'dark');
+            });
+        });
+    </script>
+}
