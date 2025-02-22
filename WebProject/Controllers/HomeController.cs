@@ -108,20 +108,36 @@ namespace WebProject.Controllers
         [HttpPost]
         public IActionResult AddProcedure([FromBody] OperationSchedule model)
         {
-            if (model.EndDateTime <= model.StartDateTime)
+            // Проверка, что дата окончания не раньше даты начала
+            if (model.EndDateTime.Date < model.StartDateTime.Date)
             {
-                return Json(new { success = false, message = "Время окончания операции должно быть позже времени начала." });
+                return Json(new { success = false, message = "Дата окончания операции не может быть раньше даты начала." });
             }
 
-            var operationDate = model.StartDateTime.Date;
+            // Если операции в один день - проверяем время
+            if (model.StartDateTime.Date == model.EndDateTime.Date
+                && model.EndDateTime <= model.StartDateTime)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Для операций в рамках одного дня время окончания должно быть позже времени начала."
+                });
+            }
 
+            // Проверка пересечения с существующими операциями в этой операционной
             bool conflict = _context.OperationSchedules
-                .Where(op => op.OperatingRoomId == model.OperatingRoomId && op.StartDateTime.Date == operationDate)
-                .Any(op => model.StartDateTime < op.EndDateTime && model.EndDateTime > op.StartDateTime);
+                .Where(op => op.OperatingRoomId == model.OperatingRoomId)
+                .Any(op => model.StartDateTime < op.EndDateTime
+                         && model.EndDateTime > op.StartDateTime);
 
             if (conflict)
             {
-                return Json(new { success = false, message = "Конфликт времени: в этой операционной уже запланирована операция в выбранное время." });
+                return Json(new
+                {
+                    success = false,
+                    message = "Конфликт времени: в этой операционной уже есть операции в выбранный интервал."
+                });
             }
 
             model.CreatedAt = DateTime.Now;
