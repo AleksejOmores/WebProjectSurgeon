@@ -295,7 +295,7 @@ button[type=button] {
 }
 .button-container {
     display: flex;
-    gap: 20px; /* Space between buttons */
+    gap: 20px;
     margin-top: 20px;
 }
 
@@ -315,72 +315,6 @@ button[type=button] {
     align-items: center;
     gap: 20px;
 }
-
-/* Боковая панель навигации */
-.sidebar {
-    background-color: #34495e;
-    color: #fff;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 200px;
-    height: 100%;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-    .sidebar h2 {
-        font-size: 18px;
-        margin-bottom: 20px;
-    }
-
-    .sidebar ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-        .sidebar ul li {
-            margin: 10px 0;
-        }
-
-            .sidebar ul li a {
-                color: #fff;
-                text-decoration: none;
-                font-size: 16px;
-                transition: color 0.3s;
-            }
-
-                .sidebar ul li a:hover {
-                    color: #1abc9c;
-                }
-
-    .sidebar.collapsed {
-        width: 50px; /* Ширина свернутого sidebar */
-    }
-    .sidebar ul, .sidebar h2 {
-        transition: opacity 0.3s ease;
-    }
-
-    .sidebar.collapsed ul, .sidebar.collapsed h2 {
-        opacity: 0; /* Скрываем текст */
-    }
-
-#toggleSidebar {
-    position: absolute;
-    top: 10px;
-    right: -20px;
-    background-color: #34495e;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    z-index: 1;
-    font-size: 20px;
-}
-
-.sidebar.collapsed #toggleSidebar {
-    right: -30px; /* Перемещаем кнопку при сворачивании */
-}
 /* Основная область контента */
 .main-content {
     display: flex;
@@ -399,6 +333,7 @@ button[type=button] {
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    margin-left: 90px;
 }
 
 button {

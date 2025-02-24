@@ -27,15 +27,25 @@ namespace WebProject.Controllers
         public IActionResult IndexMain()
         {
             var model = new MainPage();
-            if (TempData.ContainsKey("UserName"))
+
+            if (TempData.TryGetValue("UserName", out var userName))
             {
-                model.UserName = TempData["UserName"].ToString();
+                model.UserName = userName.ToString();
             }
+            else
+            {
+                model.UserName = "Гость";
+            }
+
             return View(model);
         }
 
-        public IActionResult IndexEmergency()
+        public async Task<IActionResult> IndexEmergency()
         {
+            var surgeons = await _context.Surgeons.ToListAsync();
+            var operationRooms = await _context.OperatingRooms.ToListAsync();
+            ViewBag.Surgeons = surgeons;
+            ViewBag.OperatingRooms = operationRooms;
             return View();
         }
 
@@ -108,35 +118,50 @@ namespace WebProject.Controllers
         [HttpPost]
         public IActionResult AddProcedure([FromBody] OperationSchedule model)
         {
-            // Проверка, что дата окончания не раньше даты начала
-            if (model.EndDateTime.Date < model.StartDateTime.Date)
-            {
-                return Json(new { success = false, message = "Дата окончания операции не может быть раньше даты начала." });
-            }
-
-            // Если операции в один день - проверяем время
-            if (model.StartDateTime.Date == model.EndDateTime.Date
-                && model.EndDateTime <= model.StartDateTime)
+            // Проверка валидации модели, включая обязательные поля
+            if (!ModelState.IsValid)
             {
                 return Json(new
                 {
                     success = false,
-                    message = "Для операций в рамках одного дня время окончания должно быть позже времени начала."
+                    message = "Некорректные данные операции"
                 });
             }
 
-            // Проверка пересечения с существующими операциями в этой операционной
+            // 1. Проверка: дата начала не должна быть в прошлом
+            if (model.StartDateTime <= DateTime.Now)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Невозможно запланировать операцию на прошедшую дату и время"
+                });
+            }
+
+            // 2. Если операция в один день – время окончания должно быть позже времени начала
+            if (model.StartDateTime.Date == model.EndDateTime.Date && model.EndDateTime <= model.StartDateTime)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Время окончания операции должно быть позже времени начала"
+                });
+            }
+
+            // 3. Проверка на пересечение с уже запланированными операциями в выбранной операционной
             bool conflict = _context.OperationSchedules
                 .Where(op => op.OperatingRoomId == model.OperatingRoomId)
-                .Any(op => model.StartDateTime < op.EndDateTime
-                         && model.EndDateTime > op.StartDateTime);
+                .Any(op =>
+                    model.StartDateTime < op.EndDateTime &&
+                    model.EndDateTime > op.StartDateTime
+                );
 
             if (conflict)
             {
                 return Json(new
                 {
                     success = false,
-                    message = "Конфликт времени: в этой операционной уже есть операции в выбранный интервал."
+                    message = "Конфликт времени: в выбранный период уже есть операции"
                 });
             }
 
@@ -144,8 +169,34 @@ namespace WebProject.Controllers
             _context.OperationSchedules.Add(model);
             _context.SaveChanges();
 
-            return Json(new { success = true, message = "Операция успешно добавлена." });
+            return Json(new
+            {
+                success = true,
+                message = "Операция успешно запланирована"
+            });
         }
+
+        [HttpGet]
+        public IActionResult GetOperations()
+        {
+            // Получаем операции с подключенными операционными и хирургами
+            var operations = _context.OperationSchedules
+                .Include(op => op.OperatingRoom)
+                .Include(op => op.Surgeon)
+                .OrderBy(op => op.StartDateTime)
+                .ToList();
+
+            var operationsDto = operations.Select(op => new {
+                operatingRoom = op.OperatingRoom != null ? op.OperatingRoom.RoomName : "Не указана",
+                surgeon = op.Surgeon != null ? op.Surgeon.FullName : "Не указан",
+                startDateTime = op.StartDateTime.ToString("dd.MM HH:mm"),
+                endDateTime = op.EndDateTime.ToString("dd.MM HH:mm"),
+                status = op.Status ?? "Не указан"
+            });
+
+            return Json(operationsDto);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

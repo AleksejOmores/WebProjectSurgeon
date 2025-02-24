@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Запланированные операции";
 }
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -27,7 +26,6 @@
             display: flex;
             min-height: 100vh;
         }
-
         /* Боковое меню */
         .sidebar {
             width: 260px;
@@ -40,9 +38,9 @@
             z-index: 1000;
         }
 
-        .sidebar.collapsed {
-            transform: translateX(-100%);
-        }
+            .sidebar.collapsed {
+                transform: translateX(-100%);
+            }
 
         .sidebar-header {
             display: flex;
@@ -57,29 +55,28 @@
             margin: 0;
         }
 
-        .sidebar-menu li a {
-            display: block;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            color: var(--text);
-            text-decoration: none;
-            transition: 0.2s all;
-            margin: 0.25rem 0;
-        }
+            .sidebar-menu li a {
+                display: block;
+                padding: 0.75rem 1rem;
+                border-radius: 8px;
+                color: var(--text);
+                text-decoration: none;
+                transition: 0.2s all;
+                margin: 0.25rem 0;
+            }
 
-        .sidebar-menu li a:hover {
-            background: #F1F5F9;
-        }
+                .sidebar-menu li a:hover {
+                    background: #F1F5F9;
+                }
 
-        .sidebar-menu li a.active {
-            background: var(--primary);
-            color: white;
-        }
-
+                .sidebar-menu li a.active {
+                    background: var(--primary);
+                    color: white;
+                }
         /* Основной контент */
         .main-content {
             flex: 1;
-            margin-left: 260px;
+            margin-left: 250px;
             padding: 2rem;
             transition: 0.3s margin;
         }
@@ -88,7 +85,6 @@
             max-width: 1400px;
             margin: 0 auto;
         }
-
         /* Выбор операционной */
         .operating-rooms {
             display: grid;
@@ -107,11 +103,10 @@
             text-align: center;
         }
 
-        .room:hover {
-            border-color: var(--primary);
-            box-shadow: 0 2px 8px rgba(42, 92, 130, 0.1);
-        }
-
+            .room:hover {
+                border-color: var(--primary);
+                box-shadow: 0 2px 8px rgba(42, 92, 130, 0.1);
+            }
         /* Форма добавления */
         .horizontal-container {
             display: grid;
@@ -147,11 +142,11 @@
             transition: 0.2s border-color;
         }
 
-        .inputIndex:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(42, 92, 130, 0.1);
-        }
+            .inputIndex:focus {
+                outline: none;
+                border-color: var(--primary);
+                box-shadow: 0 0 0 3px rgba(42, 92, 130, 0.1);
+            }
 
         .addOperating {
             background: var(--primary);
@@ -165,10 +160,9 @@
             transition: 0.2s transform;
         }
 
-        .addOperating:hover {
-            transform: translateY(-2px);
-        }
-
+            .addOperating:hover {
+                transform: translateY(-2px);
+            }
         /* Список операций */
         .operations-list {
             background: white;
@@ -185,11 +179,11 @@
             align-items: center;
         }
 
-        .operations-row.header {
-            background: var(--primary);
-            color: white;
-            font-weight: 500;
-        }
+            .operations-row.header {
+                background: var(--primary);
+                color: white;
+                font-weight: 500;
+            }
 
         .operations-cell {
             padding: 0.75rem;
@@ -224,37 +218,37 @@
                 </div>
             </div>
 
-            <!-- Основной контент -->
+            <!-- Форма добавления и список операций -->
             <div class="horizontal-container">
                 <!-- Форма добавления -->
                 <div class="add-procedure-block">
                     <h3>➕ Новая операция</h3>
                     <form id="procedure-form">
+                        <!-- Скрытое поле для id операционной -->
                         <div class="input-group">
                             <label>Операционная</label>
-                            <input class="inputIndex" type="text" name="OperatingRoomId" id="selected-operating-room-id" readonly>
+                            <input type="hidden" name="OperatingRoomId" id="selected-operating-room-id">
+                            <!-- Отображаем название операционной -->
+                            <input type="text" id="selected-operating-room-name" class="inputIndex" placeholder="Выберите операционную" readonly>
                         </div>
-
                         <div class="input-group">
                             <label>Хирург</label>
                             <select class="inputIndex" id="doctor-select" required>
                                 <option value="">Выберите хирурга</option>
-                                @foreach (var surgeon in ViewBag.Surgeons) {
+                                @foreach (var surgeon in ViewBag.Surgeons)
+                                {
                                     <option value="@surgeon.SurgeonId">👨⚕️ @surgeon.FullName</option>
                                 }
                             </select>
                         </div>
-
                         <div class="input-group">
                             <label>Начало</label>
                             <input class="inputIndex" type="datetime-local" id="procedure-start-datetime" required>
                         </div>
-
                         <div class="input-group">
                             <label>Конец</label>
                             <input class="inputIndex" type="datetime-local" id="procedure-end-datetime" required>
                         </div>
-
                         <button type="button" class="addOperating" onclick="addProcedure()">
                             📌 Запланировать
                         </button>
@@ -262,79 +256,111 @@
                 </div>
 
                 <!-- Список операций -->
-                <div class="operations-list">
-                    <div class="operations-row header">
-                        <div class="operations-cell">Операционная</div>
-                        <div class="operations-cell">Хирург</div>
-                        <div class="operations-cell">Начало</div>
-                        <div class="operations-cell">Конец</div>
-                        <div class="operations-cell">Статус</div>
-                    </div>
-                    
-                    <!-- Пример строки -->
-                    <div class="operations-row">
-                        <div class="operations-cell" data-label="Операционная">OR-107</div>
-                        <div class="operations-cell" data-label="Хирург">Иванов А.П.</div>
-                        <div class="operations-cell" data-label="Начало">24.05 14:00</div>
-                        <div class="operations-cell" data-label="Конец">24.05 16:30</div>
-                        <div class="operations-cell" data-label="Статус"><span class="status-badge">🟢 Запланировано</span></div>
-                    </div>
+                <div class="operations-list" id="operations-list">
+                    <!-- Данные подтягиваются динамически -->
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Переключение бокового меню
         function toggleSidebar() {
             document.querySelector('.sidebar').classList.toggle('collapsed');
         }
-
-        // Адаптивное меню
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
                 document.querySelector('.sidebar').classList.remove('collapsed');
             }
         });
-    </script>
-</body>
-</html>
 
-<script>
-    function selectRoom(roomId, roomName) {
-        document.getElementById("selected-operating-room-id").value = `${roomName}`;
-    }
+        // При выборе операционной записываем id и название
+        function selectRoom(roomId, roomName) {
+            document.getElementById("selected-operating-room-id").value = roomId;
+            document.getElementById("selected-operating-room-name").value = roomName;
+        }
 
-    function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        sidebar.classList.toggle('collapsed');
-    }
+        // Функция обновления списка операций
+        function updateOperationsList() {
+            fetch('/Home/GetOperations')
+                .then(response => response.json())
+                .then(data => {
+                    let html = `
+                        <div class="operations-row header">
+                            <div class="operations-cell">Операционная</div>
+                            <div class="operations-cell">Хирург</div>
+                            <div class="operations-cell">Начало</div>
+                            <div class="operations-cell">Конец</div>
+                            <div class="operations-cell">Статус</div>
+                        </div>`;
+                    data.forEach(item => {
+                        html += `
+                        <div class="operations-row">
+                            <div class="operations-cell" data-label="Операционная">${item.operatingRoom}</div>
+                            <div class="operations-cell" data-label="Хирург">${item.surgeon}</div>
+                            <div class="operations-cell" data-label="Начало">${item.startDateTime}</div>
+                            <div class="operations-cell" data-label="Конец">${item.endDateTime}</div>
+                            <div class="operations-cell" data-label="Статус">${item.status}</div>
+                        </div>`;
+                    });
+                    document.getElementById('operations-list').innerHTML = html;
+                })
+                .catch(error => console.error('Ошибка получения операций:', error));
+        }
 
-    function addProcedure() {
-        const procedureData = {
-            SurgeonId: document.getElementById("doctor-select").value,
-            StartDateTime: document.getElementById("procedure-start-datetime").value,
-            EndDateTime: document.getElementById("procedure-end-datetime").value,
-            OperatingRoomId: document.getElementById("selected-operating-room-id").value,
-            Status: "Запланировано" 
-        };
+        // Обновляем список при загрузке страницы
+        document.addEventListener('DOMContentLoaded', updateOperationsList);
 
-        fetch('/Home/AddProcedure', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(procedureData)
-        })
+        // Функция отправки данных новой операции
+        function addProcedure() {
+            const startInput = document.getElementById("procedure-start-datetime");
+            const endInput = document.getElementById("procedure-end-datetime");
+
+            const startDateTime = new Date(startInput.value);
+            if (startDateTime <= new Date()) {
+                alert("Дата и время начала операции не могут быть в прошлом");
+                return;
+            }
+            const endDateTime = new Date(endInput.value);
+            if (startDateTime.toDateString() === endDateTime.toDateString() && endDateTime <= startDateTime) {
+                alert("Для операций в один день время окончания должно быть позже времени начала");
+                return;
+            }
+
+            const procedureData = {
+                SurgeonId: document.getElementById("doctor-select").value,
+                StartDateTime: document.getElementById("procedure-start-datetime").value,
+                EndDateTime: document.getElementById("procedure-end-datetime").value,
+                OperatingRoomId: document.getElementById("selected-operating-room-id").value,
+                Status: "Запланировано"
+            };
+
+            if (!procedureData.SurgeonId || !procedureData.StartDateTime || !procedureData.EndDateTime || !procedureData.OperatingRoomId) {
+                alert("Заполните все обязательные поля");
+                return;
+            }
+
+            fetch('/Home/AddProcedure', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(procedureData)
+            })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
                     alert(data.message);
+                    // Обновляем список операций после успешного добавления
+                    updateOperationsList();
+                    // Очистка формы (при необходимости)
                     document.getElementById("procedure-form").reset();
-                    location.reload();
+                    document.getElementById("selected-operating-room-name").value = "";
+                    document.getElementById("selected-operating-room-id").value = "";
                 } else {
                     alert("Ошибка: " + data.message);
                 }
             })
             .catch(error => console.error('Ошибка:', error));
-    }
-</script>
+        }
+    </script>
+</body>
+</html>
